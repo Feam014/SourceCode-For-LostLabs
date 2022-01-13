@@ -4,23 +4,19 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    [SerializeField] Transform player;
-    [SerializeField] Vector3 offset;
-    [Range(1, 10)]
-    [SerializeField] float perfectFactor;
+  public Transform player;
+  public Vector3 cameraOffset;
+  public float cameraSpeed = 0.1f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+  void Start()
+  {
+    transform.position = player.position + cameraOffset; //Eh?
+  }
 
-    // Update is called once per frame
-
-    private void FixedUpdate()
-    {
-        Vector3 playerPosition = player.position + offset;
-        Vector3 perfectPosition = Vector3.Lerp(transform.position, playerPosition, perfectFactor * Time.fixedDeltaTime);
-        transform.position = playerPosition;
-    }
+  void FixedUpdate ()
+  {
+    Vector3 finalPosition = player.position + cameraOffset;
+    Vector3 lerpPosition = Vector3.Lerp (transform.position, finalPosition, cameraSpeed);
+    transform.position = lerpPosition;
+  }
 }
